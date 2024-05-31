@@ -32,7 +32,7 @@ def go(args):
 
     artifact_local_path = run.use_artifact(args.input_artifact).file()
 
-    df = pd.read_parquet(artifact_local_path)
+    df = pd.read_csv(artifact_local_path)
 
     min_price = args.min_price
     max_price = args.max_price
@@ -51,7 +51,7 @@ def go(args):
     artifact = wandb.Artifact(
         name=args.output_artifact,
         type=args.args.output_type,
-        description=args.artifact_description,
+        description=args.output_description,
     )
     artifact.add_file(filename)
 
@@ -71,7 +71,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--input_artifact", 
         type=str, ## INSERT TYPE HERE: str, float or int,
-        help= "This is the file name of the input artifact ",
+        help= "This is the file name of the input artifact",
         required=True
     )
 
