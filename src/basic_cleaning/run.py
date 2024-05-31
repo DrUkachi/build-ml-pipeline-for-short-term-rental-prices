@@ -50,7 +50,7 @@ def go(args):
 
     artifact = wandb.Artifact(
         name=args.output_artifact,
-        type=args.args.output_type,
+        type=args.output_type,
         description=args.output_description,
     )
     artifact.add_file(filename)
