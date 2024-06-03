@@ -49,6 +49,19 @@ def go(args):
     run.summary['r2'] = r_squared
     run.summary['mae'] = mae
 
+    # Log model predictions as an artifact
+    preds_df = pd.DataFrame({"predictions": y_pred, "actuals": y_test})
+    preds_csv_path = "predictions.csv"
+    preds_df.to_csv(preds_csv_path, index=False)
+
+    artifact = wandb.Artifact(
+        "model_predictions",
+        type="predictions",
+        description="Model predictions and actual values",
+    )
+    artifact.add_file(preds_csv_path)
+    run.log_artifact(artifact)
+
 
 if __name__ == "__main__":
 
